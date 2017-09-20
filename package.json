@@ -1,0 +1,25 @@
+{
+  "name": "acopiobot",
+  "version": "1.0.0",
+  "description": "Repositorio del bot que toma la información de los centros de acopio, tomado de los datos de #comoayudarmx para las personas que no pueden entrar a la web pero tienen acceso a FB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiramishima/acopiobot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kiramishima/acopiobot/issues"
+  },
+  "homepage": "https://github.com/kiramishima/acopiobot#readme",
+  "dependencies": {
+    "botbuilder": "^3.9.1",
+    "request": "^2.82.0",
+    "restify": "^6.0.1"
+  }
+}
