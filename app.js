@@ -66,9 +66,9 @@ bot.dialog('/findByLocation', [
             let selection = results.response.entity;
             session.userData.location = selection;
             // Connected to API
-            console.log({selection});
+            // console.log({selection});
             let result = api.FilterByLocation(selection);
-            console.log({result});
+            // console.log({result});
             session.replaceDialog('/displayResults', { result });
         }
     }
@@ -86,9 +86,9 @@ bot.dialog('/findByDonationType', [
             let selection = results.response.entity;
             session.userData.donationType = selection;
             // Connected to API
-            console.log({selection});
+            // console.log({selection});
             let result = api.FilterByDonationType(selection);
-            console.log({result});
+            // console.log({result});
             session.replaceDialog('/displayResults', { result });
         }
     }
@@ -97,22 +97,28 @@ bot.dialog('/findByDonationType', [
 bot.dialog('/displayResults',
 (session, args, next) => {
     if (args.result) {
-        console.log(args.result)
+        // console.log(args.result)
         var searchResult = args.result;
-        // Create Reply Layout
-        var reply = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel);
-        let cards = searchResult.map((element) => {
-            return new builder.HeroCard(session)
-                .title(element.title)
-                .subtitle(element.address)
-                .text(element.description)
-                .buttons([
-                    builder.CardAction.openUrl(session, element.link, element.title)
-                ]);
-        });
-        reply.attachments(cards);
-        session.send(reply);
-        session.endConversation();
+        if (searchResult.length > 0) {
+            // Create Reply Layout
+            var reply = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel);
+            let cards = searchResult.map((element) => {
+                return new builder.HeroCard(session)
+                    .title(element.title)
+                    .subtitle(element.address)
+                    .text(element.description)
+                    .buttons([
+                        builder.CardAction.openUrl(session, element.link, element.title)
+                    ]);
+            });
+            reply.attachments(cards);
+            session.send(reply);
+            session.endConversation();
+            session.reset('/');
+        } else {
+            session.endConversation("Lo siento, no pude obtener información");
+            session.reset('/');
+        }
     } else {
         session.endConversation("Lo siento, no pude obtener informacion :(");
     }
