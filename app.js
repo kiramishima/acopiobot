@@ -57,13 +57,13 @@ bot.dialog('/findByLocation', [
     (session, args, next) => {
         // Connected to API
         let donationTypes = api.Locations();
-        session.userData.location = '';
+        // session.userData.location = '';
         builder.Prompts.choice(session, "Filtrar por locación?", donationTypes, { listStyle: builder.ListStyle.button });
     },
     (session, results, next) => {
         if (results.response) {
             let selection = results.response.entity;
-            session.userData.location = selection;
+            // session.userData.location = selection;
             // Connected to API
             // console.log({selection});
             let result = api.FilterByLocation(selection);
@@ -77,13 +77,13 @@ bot.dialog('/findByDonationType', [
     (session, args, next) => {
         // Connected to API
         let donationTypes = api.DonationTypes();
-        session.userData.donationType = '';
+        // session.userData.donationType = '';
         builder.Prompts.choice(session, "Filtrar por tipo de donación?", donationTypes, { listStyle: builder.ListStyle.button });
     },
     (session, results, next) => {
         if (results.response) {
             let selection = results.response.entity;
-            session.userData.donationType = selection;
+            // session.userData.donationType = selection;
             // Connected to API
             // console.log({selection});
             let result = api.FilterByDonationType(selection);
@@ -113,7 +113,7 @@ bot.dialog('/displayResults',
             reply.attachments(cards);
             session.send(reply);
             session.endConversation();
-            session.reset('/');
+            // session.reset('/');
         } else {
             session.endConversation("Lo siento, no pude obtener información");
             session.reset('/');
