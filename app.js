@@ -2,7 +2,6 @@ const restify = require("restify");
 const builder = require("botbuilder");
 const api = require("./consumer");
 // Create chat connector for communicating with the Bot Framework Service
-console.log(process.env);
 const connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
     appPassword: process.env.MICROSOFT_APP_PASSWORD
