@@ -32,10 +32,10 @@ bot.dialog('/menu', [
                     session.replaceDialog('/findAll');
                     break;
                 case "Filtrado por locación":
-                    // session.replaceDialog('/findByLocation');
+                    session.replaceDialog('/findByLocation');
                     break;
                 case "Filtrado por tipo de donacion":
-                    // session.replaceDialog('/findByType');
+                    session.replaceDialog('/findByDonationType');
                     break;
                 default:
                     session.reset('/');
@@ -48,14 +48,48 @@ bot.dialog('/menu', [
 bot.dialog('/findAll', [
     (session, args, next) => {
         // Connected to API
-        api.ObtenerTodos().then(result => {
+        let result = api.ObtenerTodos();
+        session.replaceDialog('/displayResults', { result });
+    }
+]);
+
+bot.dialog('/findByLocation', [
+    (session, args, next) => {
+        // Connected to API
+        let donationTypes = api.Locations();
+        session.userData.location = '';
+        builder.Prompts.choice(session, "Filtrar por locación?", donationTypes, { listStyle: builder.ListStyle.button });
+    },
+    (session, results, next) => {
+        if (results.response) {
+            let selection = results.response.entity;
+            session.userData.location = selection;
+            // Connected to API
+            console.log({selection});
+            let result = api.FilterByLocation(selection);
+            console.log({result});
             session.replaceDialog('/displayResults', { result });
-        })
-        .catch(error => {
-            session.send("No se pudo encontrar informacion");
-            session.send(error);
-            session.endConversation();
-        });
+        }
+    }
+]);
+
+bot.dialog('/findByDonationType', [
+    (session, args, next) => {
+        // Connected to API
+        let donationTypes = api.DonationTypes();
+        session.userData.donationType = '';
+        builder.Prompts.choice(session, "Filtrar por tipo de donación?", donationTypes, { listStyle: builder.ListStyle.button });
+    },
+    (session, results, next) => {
+        if (results.response) {
+            let selection = results.response.entity;
+            session.userData.donationType = selection;
+            // Connected to API
+            console.log({selection});
+            let result = api.FilterByDonationType(selection);
+            console.log({result});
+            session.replaceDialog('/displayResults', { result });
+        }
     }
 ]);
 
@@ -63,7 +97,7 @@ bot.dialog('/displayResults',
 (session, args, next) => {
     if (args.result) {
         console.log(args.result)
-        var searchResult = JSON.parse(args.result);
+        var searchResult = args.result;
         // Create Reply Layout
         var reply = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel);
         let cards = searchResult.map((element) => {
