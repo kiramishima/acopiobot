@@ -1,20 +1,26 @@
 const restify = require("restify");
 const builder = require("botbuilder");
 const api = require("./consumer");
+const facebook = require('botbuilder-facebookextension');
+
 // Create chat connector for communicating with the Bot Framework Service
 const connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
     appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 // Create Bot Instance
-const bot = new builder.UniversalBot(connector);
-
+const bot = new builder.UniversalBot(connector, session => {
+    session.sendTyping();
+    session.replaceDialog('/menu');
+});
+// Add recognizer
+bot.recognizer(new facebook.CallbackRecognizer());
 // Dialogs Waterfall
-bot.dialog('/', [
+/*bot.dialog('/', [
     (session) => {
         session.replaceDialog('/menu');
     }
-]);
+]);*/
 
 bot.dialog('/menu', [
     function (session) {
@@ -47,14 +53,18 @@ bot.dialog('/menu', [
 
 bot.dialog('/findAll', [
     (session, args, next) => {
+        session.sendTyping();
         // Connected to API
         let result = api.ObtenerTodos();
         session.replaceDialog('/displayResults', { result });
     }
-]);
+]).triggerAction({
+    matches: 'GENERAL_LIST' // callback payload
+});
 
 bot.dialog('/findByLocation', [
     (session, args, next) => {
+        session.sendTyping();
         // Connected to API
         let donationTypes = api.Locations();
         // session.userData.location = '';
@@ -62,6 +72,7 @@ bot.dialog('/findByLocation', [
     },
     (session, results, next) => {
         if (results.response) {
+            session.sendTyping();
             let selection = results.response.entity;
             // session.userData.location = selection;
             // Connected to API
@@ -71,10 +82,13 @@ bot.dialog('/findByLocation', [
             session.replaceDialog('/displayResults', { result });
         }
     }
-]);
+]).triggerAction({
+    matches: 'FILTER_BY_LOCATION' // callback payload
+});
 
 bot.dialog('/findByDonationType', [
     (session, args, next) => {
+        session.sendTyping();
         // Connected to API
         let donationTypes = api.DonationTypes();
         // session.userData.donationType = '';
@@ -82,6 +96,7 @@ bot.dialog('/findByDonationType', [
     },
     (session, results, next) => {
         if (results.response) {
+            session.sendTyping();
             let selection = results.response.entity;
             // session.userData.donationType = selection;
             // Connected to API
@@ -91,7 +106,9 @@ bot.dialog('/findByDonationType', [
             session.replaceDialog('/displayResults', { result });
         }
     }
-]);
+]).triggerAction({
+    matches: 'FILTER_BY_DONATION_TYPE' // callback payload
+});
 
 bot.dialog('/displayResults',
 (session, args, next) => {
@@ -127,9 +144,9 @@ bot.dialog('/displayResults',
 
 // Setup Restify Server
 const server = restify.createServer();
-server.use(restify.plugins.acceptParser(server.acceptable));
+/*server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
-server.use(restify.plugins.bodyParser()); 
+server.use(restify.plugins.bodyParser()); */
 server.listen(process.env.PORT || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
