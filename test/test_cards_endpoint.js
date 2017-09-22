@@ -1,5 +1,10 @@
 const api = require("../consumer");
-
-var data = api.ObtenerTodos();
-console.log({data});
-console.log(data.length);
+const assert = require('assert');
+describe('Array', function() {
+  describe('Pruebas de Consumer-Card', function() {
+    it('Obtener todos los registros de los centros de acopio', function() {
+        let records = api.ObtenerTodos();
+        assert.equal(records.length > 0, true, `Registros obtenidos ${records.length}`);
+    });
+  });
+});

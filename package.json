@@ -4,7 +4,7 @@
   "description": "Repositorio del bot que toma la información de los centros de acopio, tomado de los datos de #comoayudarmx para las personas que no pueden entrar a la web pero tienen acceso a FB",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
     "lodash": "^4.17.4",
     "request": "^2.82.0",
     "restify": "^6.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.3"
   }
 }
