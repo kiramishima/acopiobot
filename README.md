@@ -18,12 +18,6 @@ Es un bot enfocado hacia la mensajeria, que toma la información de los centros 
 La conversación y coordinación de las tareas las estamos llevando en el Slack de Codeando México, dentro del canal de `#equipo-humanitario`. Para unirte a Slack, registrate en http://slack.codeandomexico.org.
 ---
 
-### Cómo correr este repositorio en local
-
-Para correr el proyecto en local necesitas
-[Ruby](https://www.ruby-lang.org/es/) mayor de 1.9 y
-[RubyGems](https://rubygems.org/pages/download/).
----
 
 ### Cómo correr este repositorio en local
 
