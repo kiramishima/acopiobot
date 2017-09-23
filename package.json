@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/kiramishima/acopiobot#readme",
   "dependencies": {
-    "botbuilder": "^3.9.1",
+    "botbuilder": "^3.10.1",
     "botbuilder-facebookextension": "^1.2.4",
     "lodash": "^4.17.4",
     "request": "^2.82.0",
