@@ -50,6 +50,16 @@ bot.dialog('/menu', [
         }
     }
 ]);
+// TODO se agregara en cuanto el API de
+// bot.dialog('/listFakeNews', [
+//     (session, args, next) => {
+//         session.sendTyping();
+//         // Connected to API
+//         let result = api.FakeNewsAll().then(resp => console.log);
+//     }
+// ]).triggerAction({
+//     matches: 'FAKE_NEWS_LIST' // callback facebook payload
+// });
 
 bot.dialog('/findAll', [
     (session, args, next) => {

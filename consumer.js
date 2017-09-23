@@ -1,5 +1,6 @@
 // Script que consume los datos del JSON de http://comoayudar.mx
 const jsondata = require("./cards");
+const request = require('request');
 const _ = require("lodash");
 
 function getAll () {
@@ -20,10 +21,21 @@ function filterByDonationType (donationType) {
 function filterByLocation (location) {
     return _.filter(jsondata, {location: location});
 }
+/** Consume el API de https://banfakenews.rzerocorp.com/ */
+function getFakeNews () {
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://banfakenews.sandbox.rzerocorp.com/api/v1/reports/`
+        }, (err, res) => {
+            resolve(res.body)
+        })
+    });
+}
 module.exports = {
     ObtenerTodos: getAll,
     DonationTypes: getDonationTypes,
     FilterByDonationType: filterByDonationType,
     Locations: getLocations,
-    FilterByLocation: filterByLocation
+    FilterByLocation: filterByLocation,
+    FakeNewsAll: getFakeNews
 }
