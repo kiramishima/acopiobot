@@ -25,7 +25,17 @@ function filterByLocation (location) {
 function getFakeNews () {
     return new Promise((resolve, reject) => {
         request.get({
-            url: `https://banfakenews.sandbox.rzerocorp.com/api/v1/reports/`
+            url: `https://banfakenews.rzerocorp.com/api/v1/reports/`,
+            json: true
+        }, (err, res) => {
+            resolve(res.body)
+        })
+    });
+}
+function getFakeNewsById (id) {
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://banfakenews.rzerocorp.com/api/v1/reports/view/${id}`
         }, (err, res) => {
             resolve(res.body)
         })
@@ -37,5 +47,6 @@ module.exports = {
     FilterByDonationType: filterByDonationType,
     Locations: getLocations,
     FilterByLocation: filterByLocation,
-    FakeNewsAll: getFakeNews
+    FakeNewsAll: getFakeNews,
+    FakeNewsById: getFakeNewsById
 }

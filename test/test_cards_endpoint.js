@@ -6,5 +6,12 @@ describe('Array', function() {
         let records = api.ObtenerTodos();
         assert.equal(records.length > 0, true, `Registros obtenidos ${records.length}`);
     });
+
+    it('Consumir Fake News', function(done) {
+      api.FakeNewsAll().then(resp => {
+        if (err) done(err);
+        done();
+      });
+  });
   });
 });

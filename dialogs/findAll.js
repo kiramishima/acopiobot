@@ -1,3 +1,5 @@
+const api = require("../consumer");
+
 module.exports = function (bot) {
     bot.dialog('/findAll', [
         (session, args, next) => {
