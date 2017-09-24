@@ -1,5 +1,5 @@
 // Consumer del Backend
-const cards = require("./Cards");
+const cards = require("./cards");
 const request = require('request');
 const _ = require("lodash");
 
