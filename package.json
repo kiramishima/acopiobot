@@ -4,6 +4,7 @@
   "description": "Repositorio del bot que toma la información de los centros de acopio, tomado de los datos de #comoayudarmx para las personas que no pueden entrar a la web pero tienen acceso a FB",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "mocha"
   },
   "repository": {
@@ -21,10 +22,14 @@
     "botbuilder": "^3.10.1",
     "botbuilder-facebookextension": "^1.2.4",
     "lodash": "^4.17.4",
+    "microsoft-adaptivecards": "^0.6.1",
     "request": "^2.82.0",
+    "request-promise": "^4.2.2",
     "restify": "^6.0.1"
   },
   "devDependencies": {
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0",
     "mocha": "^3.5.3",
     "should": "^13.1.0"
   }

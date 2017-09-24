@@ -11,7 +11,7 @@ module.exports = function (bot) {
                     let cards = searchResult.map((element) => {
                         return new builder.HeroCard(session)
                             .title(element.title)
-                            .subtitle(element.address)
+                            .subtitle(element.adicional)
                             .text(element.description)
                             .buttons([
                                 builder.CardAction.openUrl(session, element.link, element.title)

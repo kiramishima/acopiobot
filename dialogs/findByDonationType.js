@@ -6,20 +6,18 @@ module.exports = function (bot) {
         (session, args, next) => {
             session.sendTyping();
             // Connected to API
-            let donationTypes = api.DonationTypes();
-            // session.userData.donationType = '';
-            builder.Prompts.choice(session, "Filtrar por tipo de donación?", donationTypes, { listStyle: builder.ListStyle.button });
+            api.DonationTypes().then(resp => {
+                builder.Prompts.choice(session, "Filtrar por tipo de donación?", resp, { listStyle: builder.ListStyle.button });
+            });
         },
         (session, results, next) => {
             if (results.response) {
                 session.sendTyping();
                 let selection = results.response.entity;
-                // session.userData.donationType = selection;
                 // Connected to API
-                // console.log({selection});
-                let result = api.FilterByDonationType(selection);
-                // console.log({result});
-                session.replaceDialog('/displayResults', { result });
+                api.FilterByDonationType(selection).then(result => {
+                    session.replaceDialog('/displayResults', { result });
+                });
             }
         }
     ]).triggerAction({

@@ -1,25 +1,34 @@
-// Script que consume los datos del JSON de http://comoayudar.mx
-const jsondata = require("./cards");
+// Consumer del Backend
+const cards = require("./Cards");
 const request = require('request');
 const _ = require("lodash");
 
 function getAll () {
-    return jsondata;
+    return cards.GetCards();
 }
 function getDonationTypes () {
-    return Array.from(new Set(_.flatten(_.map(jsondata, n => n.type))))
+    return cards.GetCards().then(resp => {
+        return Promise.resolve(Array.from(new Set(_.flatten(_.map(resp, n => n.type)))))
+    });
 }
 
 function getLocations () {
-    return Array.from(new Set(_.flatten(_.map(jsondata, n => n.location))));
+    return cards.GetCards().then(function (resp) {
+        return Promise.resolve(Array.from(new Set(_.flatten(_.map(resp, n => n.location)))));
+    });
 }
 
 function filterByDonationType (donationType) {
-    return _.filter(jsondata, {type: donationType});
+    return cards.GetCards().then(resp => {
+        return Promise.resolve(_.filter(resp, {type: [donationType]}));
+    });
 }
 
 function filterByLocation (location) {
-    return _.filter(jsondata, {location: location});
+    // return _.filter(jsondata, {location: location});
+    return cards.GetCards().then(resp => {
+        return Promise.resolve(_.filter(resp, {location: location}));
+    });
 }
 /** Consume el API de https://banfakenews.rzerocorp.com/ */
 function getFakeNews () {
@@ -42,7 +51,7 @@ function getFakeNewsById (id) {
     });
 }
 module.exports = {
-    ObtenerTodos: getAll,
+    GetAll: getAll,
     DonationTypes: getDonationTypes,
     FilterByDonationType: filterByDonationType,
     Locations: getLocations,

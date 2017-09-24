@@ -6,20 +6,18 @@ module.exports = function (bot) {
         (session, args, next) => {
             session.sendTyping();
             // Connected to API
-            let donationTypes = api.Locations();
-            // session.userData.location = '';
-            builder.Prompts.choice(session, "Filtrar por locación?", donationTypes, { listStyle: builder.ListStyle.button });
+            api.Locations().then(resp => {
+                builder.Prompts.choice(session, "Filtrar por locación?", resp, { listStyle: builder.ListStyle.button });
+            });
         },
         (session, results, next) => {
             if (results.response) {
                 session.sendTyping();
                 let selection = results.response.entity;
-                // session.userData.location = selection;
                 // Connected to API
-                // console.log({selection});
-                let result = api.FilterByLocation(selection);
-                // console.log({result});
-                session.replaceDialog('/displayResults', { result });
+                api.FilterByLocation(selection).then(result => {
+                    session.replaceDialog('/displayResults', { result });
+                });
             }
         }
     ]).triggerAction({
