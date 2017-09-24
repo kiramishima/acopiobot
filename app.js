@@ -40,9 +40,9 @@ require('./dialogs/listFakeNews')(bot);
 
 // Setup Restify Server
 const server = restify.createServer();
-/*server.use(restify.plugins.acceptParser(server.acceptable));
+server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
-server.use(restify.plugins.bodyParser()); */
+server.use(restify.plugins.bodyParser());
 server.listen(process.env.PORT || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
