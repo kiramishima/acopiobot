@@ -47,3 +47,7 @@ server.listen(process.env.PORT || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
 server.post('/api/messages', connector.listen());
+
+server.get('/', function (req, res) {
+    res.json(200, {status: "Ok"});
+});
