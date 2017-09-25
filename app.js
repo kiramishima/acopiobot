@@ -51,3 +51,11 @@ server.post('/api/messages', connector.listen());
 server.get('/', function (req, res) {
     res.json(200, {status: "Ok"});
 });
+// Enable CORS
+server.use(
+    function crossOrigin(req,res,next){
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        return next();
+    }
+);
