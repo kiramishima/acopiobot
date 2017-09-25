@@ -7,6 +7,7 @@
     "node": "8.4.0"
   },
   "scripts": {
+    "start": "env NODE_ENV=production node app.js",
     "test": "mocha"
   },
   "repository": {
