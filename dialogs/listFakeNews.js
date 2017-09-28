@@ -3,7 +3,7 @@ const api = require("../consumer");
 
 module.exports = function (bot) {
     bot.dialog('/listFakeNews', [
-        (session, args, next) => {
+        (session) => {
             session.sendTyping();
             // Connected to API
             let result = api.FakeNewsAll().then(resp => {

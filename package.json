@@ -22,16 +22,16 @@
   },
   "homepage": "https://github.com/kiramishima/acopiobot#readme",
   "dependencies": {
-    "botbuilder": "^3.10.1",
+    "botbuilder": "^3.10.2",
     "botbuilder-facebookextension": "^1.2.4",
     "lodash": "^4.17.4",
     "microsoft-adaptivecards": "^0.6.1",
-    "request": "^2.82.0",
+    "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "restify": "^6.0.1"
   },
   "devDependencies": {
-    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-config-airbnb-base": "^12.0.1",
     "eslint-plugin-import": "^2.7.0",
     "mocha": "^3.5.3",
     "should": "^13.1.0"

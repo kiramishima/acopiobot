@@ -2,7 +2,7 @@ const builder = require("botbuilder");
 
 module.exports = function (bot) {
     bot.dialog('/displayResults', [
-        (session, args, next) => {
+        (session, args) => {
             if (args.result) {
                 var searchResult = args.result;
                 if (searchResult.length > 0) {

@@ -2,7 +2,7 @@ const api = require("../consumer");
 
 module.exports = function (bot) {
     bot.dialog('/findAll', [
-        (session, args, next) => {
+        (session) => {
             session.sendTyping();
             // Connected to API
             api.GetAll().then(result => {

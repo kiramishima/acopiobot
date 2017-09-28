@@ -31,7 +31,7 @@ var getCards = function() {
     }
 
     return rp({
-            uri: "https://spreadsheets.google.com/feeds/list/1zAFK1sSjIaHurnKzLx-e3GJZNmZ9QWfFSlIZLyYk8IE/1/public/values?alt=json",
+            uri: "https://spreadsheets.google.com/feeds/list/1zAFK1sSjIaHurnKzLx-e3GJZNmZ9QWfFSlIZLyYk8IE/olipwxe/public/values?alt=json",
             json: true
         })
         .then(function(data) {

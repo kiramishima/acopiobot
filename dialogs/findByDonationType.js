@@ -3,14 +3,14 @@ const api = require("../consumer");
 
 module.exports = function (bot) {
     bot.dialog('/findByDonationType', [
-        (session, args, next) => {
+        (session) => {
             session.sendTyping();
             // Connected to API
             api.DonationTypes().then(resp => {
                 builder.Prompts.choice(session, "Filtrar por tipo de donación?", resp, { listStyle: builder.ListStyle.button });
             });
         },
-        (session, results, next) => {
+        (session, results) => {
             if (results.response) {
                 session.sendTyping();
                 let selection = results.response.entity;

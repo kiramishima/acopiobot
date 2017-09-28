@@ -3,14 +3,14 @@ const api = require("../consumer");
 
 module.exports = function (bot) {
     bot.dialog('/findByLocation', [
-        (session, args, next) => {
+        (session) => {
             session.sendTyping();
             // Connected to API
             api.Locations().then(resp => {
                 builder.Prompts.choice(session, "Filtrar por locación?", resp, { listStyle: builder.ListStyle.button });
             });
         },
-        (session, results, next) => {
+        (session, results) => {
             if (results.response) {
                 session.sendTyping();
                 let selection = results.response.entity;
